@@ -3,7 +3,6 @@ import axios from "axios";
 import Serializer from "../components/serializer";
 import Cookies from "js-cookie";
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,11 +39,11 @@ const Login = () => {
         `https://api.rekreasi.com/api/users/${myId}?include=activities,participating,wishlists,followers,following,avatar`
       );
 
-
-      console.log('wh',whistlist);
+      // console.log("wh", whistlist);
 
       const deserialized = Serializer.deserialize("users", myDetail.data);
       setuserDetail(deserialized);
+      console.log("deserialized", deserialized);
     } catch (error) {
       console.error(error);
     }
@@ -60,18 +59,19 @@ const Login = () => {
         },
       };
 
-      const wishlistResponse = await axios.post(
-        'https://api.rekreasi.com/api/users/1/relationships/wishlists', null,
+      const wishlistRes = await axios.get(
+        "https://api.rekreasi.com/api/users/1?include=wishlists",
         header
       );
-
-      console.log('rawrr',wishlistResponse.data.data);
+      const deserialized = Serializer.deserialize("users", wishlistRes.data);
+      setuserDetail(deserialized);
+      // console.log("deserialized", deserialized.wishlists);
+      const listh = deserialized.wishlists;
+      // console.log("rawrr", listh);
     } catch (error) {
       console.error(error);
     }
   };
-
-  
 
   return (
     <div>
