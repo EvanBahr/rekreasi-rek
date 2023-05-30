@@ -9,7 +9,6 @@ const Index = () => {
   const [activities, setActivities] = useState([]);
   const router = useRouter();
   const token = Cookies.get("token");
-  const [NewData, setNewData] = useState("");
 
   useEffect(() => {
     const detail = JSON.parse(localStorage.getItem("detail"));
